@@ -1,0 +1,24 @@
+✅ Problem 1: Contest Registration Percentage
+
+Calculated the percentage of users registered for each contest.
+
+SELECT
+    r.contest_id,
+    ROUND(
+        COUNT(r.user_id) * 100.0 /
+        (SELECT COUNT(*) FROM Users),
+        2
+    ) AS percentage
+FROM Register r
+GROUP BY r.contest_id
+ORDER BY percentage DESC, contest_id ASC;
+
+✅ Problem 2: Query Quality & Poor Query Analysis
+
+Analyzed search query performance using quality scores and poor-performing query percentages.
+
+select query_name, 
+round(avg(rating/position),2) as quality,
+round((count(case when rating < 3 then 1 end)/count(*))*100,2) as poor_query_percentage 
+from queries 
+group by query_name
